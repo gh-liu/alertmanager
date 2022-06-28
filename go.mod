@@ -1,4 +1,4 @@
-module github.com/prometheus/alertmanager
+module github.com/gh-liu/alertmanager
 
 go 1.18
 
