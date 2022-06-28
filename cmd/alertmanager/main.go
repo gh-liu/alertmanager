@@ -50,11 +50,13 @@ import (
 	"github.com/prometheus/alertmanager/nflog"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/notify/email"
+	"github.com/prometheus/alertmanager/notify/js"
 	"github.com/prometheus/alertmanager/notify/opsgenie"
 	"github.com/prometheus/alertmanager/notify/pagerduty"
 	"github.com/prometheus/alertmanager/notify/pushover"
 	"github.com/prometheus/alertmanager/notify/slack"
 	"github.com/prometheus/alertmanager/notify/sns"
+	"github.com/prometheus/alertmanager/notify/syslog"
 	"github.com/prometheus/alertmanager/notify/telegram"
 	"github.com/prometheus/alertmanager/notify/victorops"
 	"github.com/prometheus/alertmanager/notify/webhook"
@@ -173,6 +175,26 @@ func buildReceiverIntegrations(nc *config.Receiver, tmpl *template.Template, log
 	for i, c := range nc.TelegramConfigs {
 		add("telegram", i, c, func(l log.Logger) (notify.Notifier, error) { return telegram.New(c, tmpl, l) })
 	}
+	for i, c := range nc.SyslogConfigs {
+		add("syslog", i, c, func(l log.Logger) (notify.Notifier, error) {
+			s, err := syslog.New(c, tmpl, l)
+			if err != nil {
+				level.Error(logger).Log("msg", "Error creating Syslog notifier", "err", err)
+			}
+			level.Info(logger).Log("msg", "Created Syslog notifier")
+			return s, err
+		})
+	}
+	for i, c := range nc.JSConfigs {
+		add("js", i, c, func(l log.Logger) (notify.Notifier, error) {
+			s, err := js.New(c, tmpl, l)
+			if err != nil {
+				level.Error(logger).Log("msg", "Error creating js notifier", "err", err)
+			}
+			level.Info(logger).Log("msg", "Created js notifier")
+			return s, err
+		})
+	}
 	if errs.Len() > 0 {
 		return nil, &errs
 	}
@@ -232,6 +254,7 @@ func run() int {
 	level.Info(logger).Log("msg", "Starting Alertmanager", "version", version.Info())
 	level.Info(logger).Log("build_context", version.BuildContext())
 
+	// 创建数据目录
 	err := os.MkdirAll(*dataDir, 0o777)
 	if err != nil {
 		level.Error(logger).Log("msg", "Unable to create data directory", "err", err)
@@ -243,6 +266,7 @@ func run() int {
 		level.Error(logger).Log("msg", "unable to initialize TLS transport configuration for gossip mesh", "err", err)
 		return 1
 	}
+	// 集群
 	var peer *cluster.Peer
 	if *clusterBindAddr != "" {
 		peer, err = cluster.Create(
@@ -271,6 +295,7 @@ func run() int {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
+	// 通知日志
 	notificationLogOpts := []nflog.Option{
 		nflog.WithRetention(*retention),
 		nflog.WithSnapshot(filepath.Join(*dataDir, "nflog")),
@@ -291,6 +316,7 @@ func run() int {
 
 	marker := types.NewMarker(prometheus.DefaultRegisterer)
 
+	// 静默
 	silenceOpts := silence.Options{
 		SnapshotFile: filepath.Join(*dataDir, "silences"),
 		Retention:    *retention,
@@ -339,6 +365,7 @@ func run() int {
 		go peer.Settle(ctx, *gossipInterval*10)
 	}
 
+	// 告警来源
 	alerts, err := mem.NewAlerts(context.Background(), marker, *alertGCInterval, nil, logger, prometheus.DefaultRegisterer)
 	if err != nil {
 		level.Error(logger).Log("err", err)
@@ -363,6 +390,7 @@ func run() int {
 		clusterPeer = peer
 	}
 
+	// API
 	api, err := api.New(api.Options{
 		Alerts:      alerts,
 		Silences:    silences,
@@ -410,6 +438,7 @@ func run() int {
 		prometheus.DefaultRegisterer,
 		configLogger,
 	)
+	// 配置变化
 	configCoordinator.Subscribe(func(conf *config.Config) error {
 		tmpl, err = template.FromGlobs(conf.Templates...)
 		if err != nil {
@@ -428,11 +457,12 @@ func run() int {
 		receivers := make(map[string][]notify.Integration, len(activeReceivers))
 		var integrationsNum int
 		for _, rcv := range conf.Receivers {
-			if _, found := activeReceivers[rcv.Name]; !found {
-				// No need to build a receiver if no route is using it.
-				level.Info(configLogger).Log("msg", "skipping creation of receiver not referenced by any route", "receiver", rcv.Name)
-				continue
-			}
+			// TODO remove comment
+			// if _, found := activeReceivers[rcv.Name]; !found {
+			// 	// No need to build a receiver if no route is using it.
+			// 	level.Info(configLogger).Log("msg", "skipping creation of receiver not referenced by any route", "receiver", rcv.Name)
+			// 	continue
+			// }
 			integrations, err := buildReceiverIntegrations(rcv, tmpl, logger)
 			if err != nil {
 				return err
@@ -505,6 +535,7 @@ func run() int {
 		return nil
 	})
 
+	// 启动时候的配置加载
 	if err := configCoordinator.Reload(); err != nil {
 		return 1
 	}
@@ -529,10 +560,12 @@ func run() int {
 	ui.Register(router, webReload, logger)
 
 	mux := api.Register(router, *routePrefix)
+	api.Add(mux)
 
 	srv := &http.Server{Addr: *listenAddress, Handler: mux}
 	srvc := make(chan struct{})
 
+	// HTTP Server
 	go func() {
 		level.Info(logger).Log("msg", "Listening", "address", *listenAddress)
 		if err := web.ListenAndServe(srv, *webConfig, logger); err != http.ErrServerClosed {

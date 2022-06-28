@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"regexp"
 	"sort"
+	"strconv"
 	"sync"
 	"time"
 
@@ -295,6 +296,10 @@ func (api *API) postAlertsHandler(params alert_ops.PostAlertsParams) middleware.
 	alerts := OpenAPIAlertsToAlerts(params.Alerts)
 	now := time.Now()
 
+	i := len(alerts)
+	is := strconv.Itoa(i)
+	level.Warn(logger).Log("msg", is+" alerts is coming")
+
 	api.mtx.RLock()
 	resolveTimeout := time.Duration(api.alertmanagerConfig.Global.ResolveTimeout)
 	api.mtx.RUnlock()
@@ -310,15 +315,23 @@ func (api *API) postAlertsHandler(params alert_ops.PostAlertsParams) middleware.
 				alert.StartsAt = alert.EndsAt
 			}
 		}
+
 		// If no end time is defined, set a timeout after which an alert
 		// is marked resolved if it is not updated.
 		if alert.EndsAt.IsZero() {
 			alert.Timeout = true
 			alert.EndsAt = now.Add(resolveTimeout)
 		}
+
 		if alert.EndsAt.After(time.Now()) {
+			level.Warn(logger).Log("start", alert.StartsAt.String())
+			level.Warn(logger).Log("end", alert.EndsAt.String())
+			level.Warn(logger).Log("msg", "firing")
 			api.m.Firing().Inc()
 		} else {
+			level.Warn(logger).Log("start", alert.StartsAt.String())
+			level.Warn(logger).Log("end", alert.EndsAt.String())
+			level.Warn(logger).Log("msg", "resolved")
 			api.m.Resolved().Inc()
 		}
 	}

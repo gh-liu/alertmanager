@@ -672,3 +672,22 @@ func (c *TelegramConfig) UnmarshalYAML(unmarshal func(interface{}) error) error 
 	}
 	return nil
 }
+
+type SyslogConfig struct {
+	NotifierConfig `yaml:",inline" json:",inline"`
+
+	Network string `yaml:"network"`
+	RAddr   string `yaml:"raddr"`
+	Tag     string `yaml:"tag"`
+	// 模板
+	Text string `yaml:"text"`
+}
+
+type JSConfig struct {
+	NotifierConfig `yaml:",inline" json:",inline"`
+
+	Script   string `yaml:"script"`
+	TargetID string `yaml:"target_id"`
+	// 模板
+	Text string `yaml:"text"`
+}

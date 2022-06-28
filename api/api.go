@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"net/http"
 	"runtime"
+	"strconv"
 	"time"
 
 	"github.com/go-kit/log"
@@ -198,6 +199,17 @@ func (api *API) Register(r *route.Router, routePrefix string) *http.ServeMux {
 func (api *API) Update(cfg *config.Config, setAlertStatus func(model.LabelSet)) {
 	api.v1.Update(cfg)
 	api.v2.Update(cfg, setAlertStatus)
+
+	// 更新需要的配置
+	port, _ := strconv.Atoi(cfg.Global.SMTPSmarthost.Port)
+	SMTPPort = port
+	SMTPHost = cfg.Global.SMTPSmarthost.Host
+	SMTPAuthUsername = cfg.Global.SMTPAuthUsername
+	SMTPAuthPassword = string(cfg.Global.SMTPAuthPassword)
+	SMTPFrom = cfg.Global.SMTPFrom
+	SMTPHello = cfg.Global.SMTPHello
+	SMTPRequireTls = cfg.Global.SMTPRequireTLS
+	Script = cfg.Global.Script
 }
 
 func (api *API) limitHandler(h http.Handler) http.Handler {
