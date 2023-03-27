@@ -42,31 +42,31 @@ import (
 	webflag "github.com/prometheus/exporter-toolkit/web/kingpinflag"
 	"gopkg.in/alecthomas/kingpin.v2"
 
+	"github.com/gh-liu/alertmanager/api"
+	"github.com/gh-liu/alertmanager/cluster"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/dispatch"
+	"github.com/gh-liu/alertmanager/inhibit"
+	"github.com/gh-liu/alertmanager/nflog"
+	"github.com/gh-liu/alertmanager/notify"
+	"github.com/gh-liu/alertmanager/notify/email"
 	"github.com/gh-liu/alertmanager/notify/js"
+	"github.com/gh-liu/alertmanager/notify/opsgenie"
+	"github.com/gh-liu/alertmanager/notify/pagerduty"
+	"github.com/gh-liu/alertmanager/notify/pushover"
+	"github.com/gh-liu/alertmanager/notify/slack"
+	"github.com/gh-liu/alertmanager/notify/sns"
 	"github.com/gh-liu/alertmanager/notify/syslog"
-	"github.com/prometheus/alertmanager/api"
-	"github.com/prometheus/alertmanager/cluster"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/dispatch"
-	"github.com/prometheus/alertmanager/inhibit"
-	"github.com/prometheus/alertmanager/nflog"
-	"github.com/prometheus/alertmanager/notify"
-	"github.com/prometheus/alertmanager/notify/email"
-	"github.com/prometheus/alertmanager/notify/opsgenie"
-	"github.com/prometheus/alertmanager/notify/pagerduty"
-	"github.com/prometheus/alertmanager/notify/pushover"
-	"github.com/prometheus/alertmanager/notify/slack"
-	"github.com/prometheus/alertmanager/notify/sns"
-	"github.com/prometheus/alertmanager/notify/telegram"
-	"github.com/prometheus/alertmanager/notify/victorops"
-	"github.com/prometheus/alertmanager/notify/webhook"
-	"github.com/prometheus/alertmanager/notify/wechat"
-	"github.com/prometheus/alertmanager/provider/mem"
-	"github.com/prometheus/alertmanager/silence"
-	"github.com/prometheus/alertmanager/template"
-	"github.com/prometheus/alertmanager/timeinterval"
-	"github.com/prometheus/alertmanager/types"
-	"github.com/prometheus/alertmanager/ui"
+	"github.com/gh-liu/alertmanager/notify/telegram"
+	"github.com/gh-liu/alertmanager/notify/victorops"
+	"github.com/gh-liu/alertmanager/notify/webhook"
+	"github.com/gh-liu/alertmanager/notify/wechat"
+	"github.com/gh-liu/alertmanager/provider/mem"
+	"github.com/gh-liu/alertmanager/silence"
+	"github.com/gh-liu/alertmanager/template"
+	"github.com/gh-liu/alertmanager/timeinterval"
+	"github.com/gh-liu/alertmanager/types"
+	"github.com/gh-liu/alertmanager/ui"
 )
 
 var (
@@ -218,10 +218,10 @@ func run() int {
 		maintenanceInterval = kingpin.Flag("data.maintenance-interval", "Interval between garbage collection and snapshotting to disk of the silences and the notification logs.").Default("15m").Duration()
 		alertGCInterval     = kingpin.Flag("alerts.gc-interval", "Interval between alert GC.").Default("30m").Duration()
 
-		webConfig      = webflag.AddFlags(kingpin.CommandLine)
+		webConfig      = webflag.AddFlags(kingpin.CommandLine, ":9093")
 		externalURL    = kingpin.Flag("web.external-url", "The URL under which Alertmanager is externally reachable (for example, if Alertmanager is served via a reverse proxy). Used for generating relative and absolute links back to Alertmanager itself. If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Alertmanager. If omitted, relevant URL components will be derived automatically.").String()
 		routePrefix    = kingpin.Flag("web.route-prefix", "Prefix for the internal routes of web endpoints. Defaults to path of --web.external-url.").String()
-		listenAddress  = kingpin.Flag("web.listen-address", "Address to listen on for the web interface and API.").Default(":9093").String()
+		listenAddress  = kingpin.Flag("web.listen-address1", "Address to listen on for the web interface and API.").Default(":9093").String()
 		getConcurrency = kingpin.Flag("web.get-concurrency", "Maximum number of GET requests processed concurrently. If negative or zero, the limit is GOMAXPROC or 8, whichever is larger.").Default("0").Int()
 		httpTimeout    = kingpin.Flag("web.timeout", "Timeout for HTTP requests. If negative or zero, no timeout is set.").Default("0").Duration()
 
@@ -568,7 +568,7 @@ func run() int {
 	// HTTP Server
 	go func() {
 		level.Info(logger).Log("msg", "Listening", "address", *listenAddress)
-		if err := web.ListenAndServe(srv, *webConfig, logger); err != http.ErrServerClosed {
+		if err := web.ListenAndServe(srv, webConfig, logger); err != http.ErrServerClosed {
 			level.Error(logger).Log("msg", "Listen error", "err", err)
 			close(srvc)
 		}

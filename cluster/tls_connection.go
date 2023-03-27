@@ -26,7 +26,7 @@ import (
 	"github.com/hashicorp/memberlist"
 	"github.com/pkg/errors"
 
-	"github.com/prometheus/alertmanager/cluster/clusterpb"
+	"github.com/gh-liu/alertmanager/cluster/clusterpb"
 )
 
 const (

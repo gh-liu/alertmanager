@@ -26,14 +26,14 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/common/route"
 
-	apiv1 "github.com/prometheus/alertmanager/api/v1"
-	apiv2 "github.com/prometheus/alertmanager/api/v2"
-	"github.com/prometheus/alertmanager/cluster"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/dispatch"
-	"github.com/prometheus/alertmanager/provider"
-	"github.com/prometheus/alertmanager/silence"
-	"github.com/prometheus/alertmanager/types"
+	apiv1 "github.com/gh-liu/alertmanager/api/v1"
+	apiv2 "github.com/gh-liu/alertmanager/api/v2"
+	"github.com/gh-liu/alertmanager/cluster"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/dispatch"
+	"github.com/gh-liu/alertmanager/provider"
+	"github.com/gh-liu/alertmanager/silence"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // API represents all APIs of Alertmanager.

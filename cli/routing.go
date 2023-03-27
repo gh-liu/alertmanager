@@ -21,8 +21,8 @@ import (
 	"github.com/xlab/treeprint"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/api/v2/models"
-	"github.com/prometheus/alertmanager/dispatch"
+	"github.com/gh-liu/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/dispatch"
 )
 
 type routingShow struct {

@@ -21,7 +21,7 @@ import (
 
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // ErrNotFound is returned if a Store cannot find the Alert.

@@ -29,8 +29,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
-	"github.com/prometheus/alertmanager/store"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/store"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 var (

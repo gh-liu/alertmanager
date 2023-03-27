@@ -5,7 +5,7 @@ swagger: '2.0'
 info:
   version: 0.0.1
   title: Alertmanager API
-  description: API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)
+  description: API of the Prometheus Alertmanager (https://github.com/gh-liu/alertmanager)
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html

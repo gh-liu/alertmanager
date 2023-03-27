@@ -22,7 +22,7 @@ import (
 	"github.com/hashicorp/memberlist"
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/prometheus/alertmanager/cluster/clusterpb"
+	"github.com/gh-liu/alertmanager/cluster/clusterpb"
 )
 
 const (

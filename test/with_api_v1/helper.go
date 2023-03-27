@@ -24,8 +24,8 @@ import (
 
 	"github.com/prometheus/client_golang/api"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 const (

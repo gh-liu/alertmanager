@@ -24,10 +24,10 @@ import (
 	"github.com/prometheus/common/model"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/api/v2/client/general"
-	"github.com/prometheus/alertmanager/api/v2/models"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/api/v2/client/general"
+	"github.com/gh-liu/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/pkg/labels"
 )
 
 // GetAlertmanagerURL appends the given path to the alertmanager base URL

@@ -21,10 +21,10 @@ import (
 
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/api/v2/client/silence"
-	"github.com/prometheus/alertmanager/api/v2/models"
-	"github.com/prometheus/alertmanager/cli/format"
-	"github.com/prometheus/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/api/v2/client/silence"
+	"github.com/gh-liu/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/cli/format"
+	"github.com/gh-liu/alertmanager/pkg/labels"
 )
 
 type silenceQueryCmd struct {

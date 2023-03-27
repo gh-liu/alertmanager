@@ -28,12 +28,12 @@ import (
 	"github.com/stretchr/testify/require"
 	"gopkg.in/yaml.v2"
 
-	"github.com/prometheus/alertmanager/nflog"
-	"github.com/prometheus/alertmanager/nflog/nflogpb"
-	"github.com/prometheus/alertmanager/silence"
-	"github.com/prometheus/alertmanager/silence/silencepb"
-	"github.com/prometheus/alertmanager/timeinterval"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/nflog"
+	"github.com/gh-liu/alertmanager/nflog/nflogpb"
+	"github.com/gh-liu/alertmanager/silence"
+	"github.com/gh-liu/alertmanager/silence/silencepb"
+	"github.com/gh-liu/alertmanager/timeinterval"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 type sendResolved bool

@@ -6,7 +6,7 @@ nav_icon: sliders
 
 # Configuration
 
-[Alertmanager](https://github.com/prometheus/alertmanager) is configured via
+[Alertmanager](https://github.com/gh-liu/alertmanager) is configured via
 command-line flags and a configuration file.
 While the command-line flags configure immutable system parameters, the
 configuration file defines inhibition rules, notification routing and
@@ -50,7 +50,7 @@ Generic placeholders are defined as follows:
 
 The other placeholders are specified separately.
 
-A provided [valid example file](https://github.com/prometheus/alertmanager/blob/main/doc/examples/simple.yml)
+A provided [valid example file](https://github.com/gh-liu/alertmanager/blob/main/doc/examples/simple.yml)
 shows usage in context.
 
 The global configuration specifies parameters that are valid in all other

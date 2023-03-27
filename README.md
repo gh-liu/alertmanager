@@ -33,8 +33,8 @@ Alertmanager will now be reachable at http://localhost:9093/.
 You can either `go get` it:
 
 ```
-$ GO15VENDOREXPERIMENT=1 go get github.com/prometheus/alertmanager/cmd/...
-# cd $GOPATH/src/github.com/prometheus/alertmanager
+$ GO15VENDOREXPERIMENT=1 go get github.com/gh-liu/alertmanager/cmd/...
+# cd $GOPATH/src/github.com/gh-liu/alertmanager
 $ alertmanager --config.file=<your_file>
 ```
 
@@ -43,7 +43,7 @@ Or clone the repository and build manually:
 ```
 $ mkdir -p $GOPATH/src/github.com/prometheus
 $ cd $GOPATH/src/github.com/prometheus
-$ git clone https://github.com/prometheus/alertmanager.git
+$ git clone https://github.com/gh-liu/alertmanager.git
 $ cd alertmanager
 $ make build
 $ ./alertmanager --config.file=<your_file>
@@ -210,7 +210,7 @@ _API v2 is still under heavy development and thereby subject to change._
 
 Alternatively you can install with:
 ```
-$ go install github.com/prometheus/alertmanager/cmd/amtool@latest
+$ go install github.com/gh-liu/alertmanager/cmd/amtool@latest
 ```
 
 ### Examples
@@ -416,7 +416,7 @@ To contribute to the user interface, refer to [ui/app/CONTRIBUTING.md](ui/app/CO
 
 ## License
 
-Apache License 2.0, see [LICENSE](https://github.com/prometheus/alertmanager/blob/main/LICENSE).
+Apache License 2.0, see [LICENSE](https://github.com/gh-liu/alertmanager/blob/main/LICENSE).
 
 [hub]: https://hub.docker.com/r/prom/alertmanager/
 [circleci]: https://circleci.com/gh/prometheus/alertmanager

@@ -10,7 +10,7 @@ Author: Max Inden <IndenML@gmail.com>
 ## Status Quo
 
 Alertmanager supports [high
-availability](https://github.com/prometheus/alertmanager/blob/master/README.md#high-availability)
+availability](https://github.com/gh-liu/alertmanager/blob/master/README.md#high-availability)
 by interconnecting multiple Alertmanager instances building an Alertmanager
 cluster. Instances of a cluster communicate on top of a gossip protocol managed
 via Hashicorps [_Memberlist_](https://github.com/hashicorp/memberlist) library.
@@ -72,7 +72,7 @@ exceed the [MTU](https://en.wikipedia.org/wiki/Maximum_transmission_unit) of
 most UDP setups. Splitting packets is not supported by _Memberlist_ and was not
 considered worth the effort to be implemented in Alertmanager either. For more
 info see this [Github
-issue](https://github.com/prometheus/alertmanager/issues/1412).
+issue](https://github.com/gh-liu/alertmanager/issues/1412).
 
 With the last [Prometheus developer
 summit](https://docs.google.com/document/d/1-C5PycocOZEVIPrmM1hn8fBelShqtqiAmFptoG4yK70/edit)

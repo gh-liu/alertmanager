@@ -22,9 +22,9 @@ import (
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/notify/test"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/notify/test"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 func TestWebhookRetry(t *testing.T) {

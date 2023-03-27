@@ -40,7 +40,7 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+    "description": "API of the Prometheus Alertmanager (https://github.com/gh-liu/alertmanager)",
     "title": "Alertmanager API",
     "license": {
       "name": "Apache 2.0",
@@ -824,7 +824,7 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "API of the Prometheus Alertmanager (https://github.com/prometheus/alertmanager)",
+    "description": "API of the Prometheus Alertmanager (https://github.com/gh-liu/alertmanager)",
     "title": "Alertmanager API",
     "license": {
       "name": "Apache 2.0",

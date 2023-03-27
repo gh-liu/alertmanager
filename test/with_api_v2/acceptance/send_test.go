@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/prometheus/alertmanager/test/with_api_v2"
+	. "github.com/gh-liu/alertmanager/test/with_api_v2"
 )
 
 // This file contains acceptance tests around the basic sending logic

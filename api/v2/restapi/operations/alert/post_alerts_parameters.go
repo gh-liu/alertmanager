@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/prometheus/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/api/v2/models"
 )
 
 // NewPostAlertsParams creates a new PostAlertsParams object

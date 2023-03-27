@@ -32,7 +32,7 @@ linters-settings:
   errcheck:
     exclude: scripts/errcheck_excludes.txt
   goimports:
-    local-prefixes: github.com/prometheus/alertmanager
+    local-prefixes: github.com/gh-liu/alertmanager
   gofumpt:
     extra-rules: true
   revive:

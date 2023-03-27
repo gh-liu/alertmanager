@@ -30,15 +30,15 @@ import (
 	"github.com/prometheus/common/route"
 	"github.com/prometheus/common/version"
 
-	"github.com/prometheus/alertmanager/api/metrics"
-	"github.com/prometheus/alertmanager/cluster"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/dispatch"
-	"github.com/prometheus/alertmanager/pkg/labels"
-	"github.com/prometheus/alertmanager/provider"
-	"github.com/prometheus/alertmanager/silence"
-	"github.com/prometheus/alertmanager/silence/silencepb"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/api/metrics"
+	"github.com/gh-liu/alertmanager/cluster"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/dispatch"
+	"github.com/gh-liu/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/provider"
+	"github.com/gh-liu/alertmanager/silence"
+	"github.com/gh-liu/alertmanager/silence/silencepb"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 var corsHeaders = map[string]string{

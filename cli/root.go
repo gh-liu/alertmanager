@@ -26,9 +26,9 @@ import (
 	"golang.org/x/mod/semver"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/api/v2/client"
-	"github.com/prometheus/alertmanager/cli/config"
-	"github.com/prometheus/alertmanager/cli/format"
+	"github.com/gh-liu/alertmanager/api/v2/client"
+	"github.com/gh-liu/alertmanager/cli/config"
+	"github.com/gh-liu/alertmanager/cli/format"
 
 	clientruntime "github.com/go-openapi/runtime/client"
 )

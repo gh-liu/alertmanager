@@ -21,7 +21,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/pkg/labels"
 )
 
 // AlertState is used as part of AlertStatus.

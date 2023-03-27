@@ -19,7 +19,7 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/cli/format"
+	"github.com/gh-liu/alertmanager/cli/format"
 )
 
 const clusterHelp = `View cluster status and peers.`

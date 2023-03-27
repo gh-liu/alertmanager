@@ -23,7 +23,7 @@ import (
 	"github.com/hashicorp/memberlist"
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/prometheus/alertmanager/cluster/clusterpb"
+	"github.com/gh-liu/alertmanager/cluster/clusterpb"
 )
 
 // Channel allows clients to send messages for a specific state type that will be

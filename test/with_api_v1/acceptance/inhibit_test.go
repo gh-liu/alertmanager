@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/prometheus/alertmanager/test/with_api_v1"
+	. "github.com/gh-liu/alertmanager/test/with_api_v1"
 )
 
 func TestInhibiting(t *testing.T) {

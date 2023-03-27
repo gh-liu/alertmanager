@@ -19,7 +19,7 @@ import (
 	"testing"
 	"time"
 
-	a "github.com/prometheus/alertmanager/test/with_api_v2"
+	a "github.com/gh-liu/alertmanager/test/with_api_v2"
 )
 
 // TestClusterDeduplication tests, that in an Alertmanager cluster of 3

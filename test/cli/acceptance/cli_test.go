@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	. "github.com/prometheus/alertmanager/test/cli"
+	. "github.com/gh-liu/alertmanager/test/cli"
 )
 
 func TestMain(m *testing.M) {

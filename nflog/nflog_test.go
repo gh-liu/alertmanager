@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	pb "github.com/prometheus/alertmanager/nflog/nflogpb"
+	pb "github.com/gh-liu/alertmanager/nflog/nflogpb"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/require"

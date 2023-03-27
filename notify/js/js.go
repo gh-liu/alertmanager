@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/dop251/goja"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/notify"
+	"github.com/gh-liu/alertmanager/template"
+	"github.com/gh-liu/alertmanager/types"
 	"github.com/go-kit/log"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/notify"
-	"github.com/prometheus/alertmanager/template"
-	"github.com/prometheus/alertmanager/types"
 )
 
 var scriptName = "alert.js"

@@ -20,9 +20,9 @@ import (
 	"github.com/go-openapi/strfmt"
 	prometheus_model "github.com/prometheus/common/model"
 
-	open_api_models "github.com/prometheus/alertmanager/api/v2/models"
-	"github.com/prometheus/alertmanager/silence/silencepb"
-	"github.com/prometheus/alertmanager/types"
+	open_api_models "github.com/gh-liu/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/silence/silencepb"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // GettableSilenceFromProto converts *silencepb.Silence to open_api_models.GettableSilence.

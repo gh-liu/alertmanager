@@ -26,10 +26,10 @@ import (
 	"github.com/pkg/errors"
 	commoncfg "github.com/prometheus/common/config"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/notify"
-	"github.com/prometheus/alertmanager/template"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/notify"
+	"github.com/gh-liu/alertmanager/template"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // Notifier implements a Notifier for Slack notifications.

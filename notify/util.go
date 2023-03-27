@@ -27,8 +27,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/version"
 
-	"github.com/prometheus/alertmanager/template"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/template"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // UserAgentHeader is the default User-Agent for notification requests

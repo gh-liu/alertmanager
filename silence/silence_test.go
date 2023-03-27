@@ -29,8 +29,8 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	pb "github.com/prometheus/alertmanager/silence/silencepb"
-	"github.com/prometheus/alertmanager/types"
+	pb "github.com/gh-liu/alertmanager/silence/silencepb"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 func checkErr(t *testing.T, expected string, got error) {
@@ -181,7 +181,7 @@ func TestSilencesSnapshot(t *testing.T) {
 	}
 }
 
-// This tests a regression introduced by https://github.com/prometheus/alertmanager/pull/2689.
+// This tests a regression introduced by https://github.com/gh-liu/alertmanager/pull/2689.
 func TestSilences_Maintenance_DefaultMaintenanceFuncDoesntCrash(t *testing.T) {
 	f, err := ioutil.TempFile("", "snapshot")
 	require.NoError(t, err, "creating temp file failed")

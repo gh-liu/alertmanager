@@ -6,7 +6,7 @@ nav_icon: sliders
 
 # Alertmanager
 
-The [Alertmanager](https://github.com/prometheus/alertmanager) handles alerts
+The [Alertmanager](https://github.com/gh-liu/alertmanager) handles alerts
 sent by client applications such as the Prometheus server.
 It takes care of deduplicating, grouping, and routing
 them to the correct receiver integration such as email, PagerDuty, or OpsGenie.
@@ -71,6 +71,6 @@ is not used to send alerts.
 ## High Availability
 
 Alertmanager supports configuration to create a cluster for high availability.
-This can be configured using the [--cluster-*](https://github.com/prometheus/alertmanager#high-availability) flags.
+This can be configured using the [--cluster-*](https://github.com/gh-liu/alertmanager#high-availability) flags.
 
 It's important not to load balance traffic between Prometheus and its Alertmanagers, but instead, point Prometheus to a list of all Alertmanagers.

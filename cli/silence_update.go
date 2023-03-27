@@ -23,9 +23,9 @@ import (
 	"github.com/prometheus/common/model"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/api/v2/client/silence"
-	"github.com/prometheus/alertmanager/api/v2/models"
-	"github.com/prometheus/alertmanager/cli/format"
+	"github.com/gh-liu/alertmanager/api/v2/client/silence"
+	"github.com/gh-liu/alertmanager/api/v2/models"
+	"github.com/gh-liu/alertmanager/cli/format"
 )
 
 type silenceUpdateCmd struct {

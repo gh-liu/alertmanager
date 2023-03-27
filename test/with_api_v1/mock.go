@@ -24,9 +24,9 @@ import (
 
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/alertmanager/notify/webhook"
-	"github.com/prometheus/alertmanager/pkg/labels"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/notify/webhook"
+	"github.com/gh-liu/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // At is a convenience method to allow for declarative syntax of Acceptance

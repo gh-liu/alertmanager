@@ -21,7 +21,7 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 func TestSetGet(t *testing.T) {

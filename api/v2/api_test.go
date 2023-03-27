@@ -29,14 +29,14 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	open_api_models "github.com/prometheus/alertmanager/api/v2/models"
-	general_ops "github.com/prometheus/alertmanager/api/v2/restapi/operations/general"
-	silence_ops "github.com/prometheus/alertmanager/api/v2/restapi/operations/silence"
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/pkg/labels"
-	"github.com/prometheus/alertmanager/silence"
-	"github.com/prometheus/alertmanager/silence/silencepb"
-	"github.com/prometheus/alertmanager/types"
+	open_api_models "github.com/gh-liu/alertmanager/api/v2/models"
+	general_ops "github.com/gh-liu/alertmanager/api/v2/restapi/operations/general"
+	silence_ops "github.com/gh-liu/alertmanager/api/v2/restapi/operations/silence"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/silence"
+	"github.com/gh-liu/alertmanager/silence/silencepb"
+	"github.com/gh-liu/alertmanager/types"
 
 	"github.com/go-kit/log"
 )

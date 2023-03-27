@@ -24,9 +24,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/pkg/labels"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 type apiTest struct {

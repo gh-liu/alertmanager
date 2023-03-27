@@ -15,7 +15,7 @@ rather than implementing a direct client.__
 The Alertmanager has two APIs, v1 and v2, both listening for alerts. The scheme
 for v1 is described in the code snipped below. The scheme for v2 is specified as
 an OpenAPI specification that can be found in the [Alertmanager
-repository](https://github.com/prometheus/alertmanager/blob/master/api/v2/openapi.yaml).
+repository](https://github.com/gh-liu/alertmanager/blob/master/api/v2/openapi.yaml).
 Clients are expected to continuously re-send alerts as long as they are still
 active (usually on the order of 30 seconds to 3 minutes). Clients can push a
 list of alerts to Alertmanager via a POST request.

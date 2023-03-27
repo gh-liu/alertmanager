@@ -24,9 +24,9 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/notify"
-	"github.com/prometheus/alertmanager/template"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/notify"
+	"github.com/gh-liu/alertmanager/template"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // RetryTests returns a map of HTTP status codes to bool indicating whether the notifier should retry or not.

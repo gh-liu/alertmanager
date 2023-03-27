@@ -22,8 +22,8 @@ import (
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/notify/test"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/notify/test"
 )
 
 func TestWechatRedactedURLOnInitialAuthentication(t *testing.T) {

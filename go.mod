@@ -29,7 +29,6 @@ require (
 	github.com/oklog/ulid v1.3.1
 	github.com/parnurzeal/gorequest v0.2.16
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/alertmanager v0.25.0
 	github.com/prometheus/client_golang v1.14.0
 	github.com/prometheus/common v0.38.0
 	github.com/prometheus/common/sigv4 v0.1.0
@@ -53,7 +52,6 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/armon/go-metrics v0.3.10 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
-	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.4.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect

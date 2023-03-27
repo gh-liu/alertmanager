@@ -22,10 +22,10 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/api/v2/client/alert"
-	"github.com/prometheus/alertmanager/api/v2/client/silence"
-	"github.com/prometheus/alertmanager/api/v2/models"
-	a "github.com/prometheus/alertmanager/test/with_api_v2"
+	"github.com/gh-liu/alertmanager/api/v2/client/alert"
+	"github.com/gh-liu/alertmanager/api/v2/client/silence"
+	"github.com/gh-liu/alertmanager/api/v2/models"
+	a "github.com/gh-liu/alertmanager/test/with_api_v2"
 )
 
 // TestAlertGetReturnsCurrentStatus checks that querying the API returns the

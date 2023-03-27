@@ -28,11 +28,11 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/dispatch"
-	"github.com/prometheus/alertmanager/pkg/labels"
-	"github.com/prometheus/alertmanager/provider"
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/dispatch"
+	"github.com/gh-liu/alertmanager/pkg/labels"
+	"github.com/gh-liu/alertmanager/provider"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // fakeAlerts is a struct implementing the provider.Alerts interface for tests.

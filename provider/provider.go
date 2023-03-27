@@ -18,7 +18,7 @@ import (
 
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/alertmanager/types"
+	"github.com/gh-liu/alertmanager/types"
 )
 
 // ErrNotFound is returned if a provider cannot find a requested item.

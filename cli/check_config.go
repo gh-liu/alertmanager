@@ -19,8 +19,8 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/alertmanager/config"
-	"github.com/prometheus/alertmanager/template"
+	"github.com/gh-liu/alertmanager/config"
+	"github.com/gh-liu/alertmanager/template"
 )
 
 // TODO: This can just be a type that is []string, doesn't have to be a struct
