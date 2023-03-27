@@ -22,7 +22,7 @@ import (
 	"net/http"
 
 	"github.com/dop251/goja"
-	"github.com/prometheus/alertmanager/notify/js"
+	"github.com/gh-liu/alertmanager/notify/js"
 	"gopkg.in/gomail.v2"
 )
 
