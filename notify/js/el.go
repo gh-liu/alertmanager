@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net"
 	"strconv"
 	"time"
@@ -76,18 +77,23 @@ func (f *ExtendLib) SubString(s string, start, end int) string {
 }
 
 func (f *ExtendLib) Info(v interface{}) {
+	log.Default().Println(v)
 }
 
 func (f *ExtendLib) Trace(v interface{}) {
+	log.Default().Println(v)
 }
 
 func (f *ExtendLib) Debug(v interface{}) {
+	log.Default().Println(v)
 }
 
 func (f *ExtendLib) Warn(v interface{}) {
+	log.Default().Println(v)
 }
 
 func (f *ExtendLib) Error(v interface{}) {
+	log.Default().Println(v)
 }
 
 func (f *ExtendLib) HmacSHA1(key, data string) string {
