@@ -18,7 +18,6 @@ import (
 	"net/http"
 	"regexp"
 	"sort"
-	"strconv"
 	"sync"
 	"time"
 
@@ -296,9 +295,9 @@ func (api *API) postAlertsHandler(params alert_ops.PostAlertsParams) middleware.
 	alerts := OpenAPIAlertsToAlerts(params.Alerts)
 	now := time.Now()
 
-	i := len(alerts)
-	is := strconv.Itoa(i)
-	level.Warn(logger).Log("msg", is+" alerts is coming")
+	// i := len(alerts)
+	// is := strconv.Itoa(i)
+	// level.Warn(logger).Log("msg", is+" alerts is coming")
 
 	api.mtx.RLock()
 	resolveTimeout := time.Duration(api.alertmanagerConfig.Global.ResolveTimeout)
@@ -323,15 +322,20 @@ func (api *API) postAlertsHandler(params alert_ops.PostAlertsParams) middleware.
 			alert.EndsAt = now.Add(resolveTimeout)
 		}
 
+		alertname := "alertname"
+		if val, ok := alert.Labels["alertname"]; ok {
+			alertname = string(val)
+		}
+
 		if alert.EndsAt.After(time.Now()) {
-			level.Warn(logger).Log("start", alert.StartsAt.String())
-			level.Warn(logger).Log("end", alert.EndsAt.String())
-			level.Warn(logger).Log("msg", "firing")
+			// level.Warn(logger).Log("start", alert.StartsAt.String())
+			// level.Warn(logger).Log("end", alert.EndsAt.String())
+			level.Warn(logger).Log(alertname, "firing")
 			api.m.Firing().Inc()
 		} else {
-			level.Warn(logger).Log("start", alert.StartsAt.String())
-			level.Warn(logger).Log("end", alert.EndsAt.String())
-			level.Warn(logger).Log("msg", "resolved")
+			// level.Warn(logger).Log("start", alert.StartsAt.String())
+			// level.Warn(logger).Log("end", alert.EndsAt.String())
+			level.Warn(logger).Log(alertname, "resolved")
 			api.m.Resolved().Inc()
 		}
 	}
