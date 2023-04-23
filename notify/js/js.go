@@ -55,7 +55,7 @@ func (n *Runtime) Notify(ctx context.Context, as ...*types.Alert) (bool, error) 
 		vm := goja.New()
 		err1 := vm.Set("el", NewExtendLib())
 		if err1 != nil {
-			level.Error(n.logger).Log("error", err2)
+			level.Error(n.logger).Log("error", err1)
 			return
 		}
 		_, err2 = vm.RunString(n.conf.Script)
@@ -79,16 +79,6 @@ func (n *Runtime) Notify(ctx context.Context, as ...*types.Alert) (bool, error) 
 			return
 		}
 		fn(msg)
-		// alarmScript, ok := goja.AssertFunction(vm.Get("onSendMsgScriptlet"))
-		// if !ok {
-		// 	level.Error(n.logger).Log("error", "告警脚本错误：找不到onSendMsgScriptlet函数")
-		// 	return
-		// }
-		// _, err3 := alarmScript(goja.Undefined(), vm.ToValue(Msg))
-		// if err3 != nil {
-		// 	level.Error(n.logger).Log("error", err3)
-		// 	return
-		// }
 	}(body, n.conf.TargetID)
 	return false, err2
 }

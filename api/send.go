@@ -16,6 +16,7 @@ package api
 import (
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/syslog"
@@ -89,9 +90,15 @@ func sendMail(w http.ResponseWriter, r *http.Request) {
 		mail.host = SMTPHost
 		mail.port = SMTPPort
 
-		mail.send()
-		b, _ := json.Marshal(mail)
-		w.Write(b)
+		err := mail.send()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+
+		} else {
+			b, _ := json.Marshal(mail)
+			w.Write(b)
+		}
 	}
 }
 
@@ -121,9 +128,15 @@ func sendSyslog(w http.ResponseWriter, r *http.Request) {
 		body := r.Body
 		defer body.Close()
 		decodeJSON(body, &sl)
-		sl.send()
-		b, _ := json.Marshal(sl)
-		w.Write(b)
+		err := sl.send()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+
+		} else {
+			b, _ := json.Marshal(sl)
+			w.Write(b)
+		}
 	}
 }
 
@@ -133,19 +146,43 @@ type scripter struct {
 	script   string `json:"-"`
 }
 
-func (s scripter) send() {
-	program, err := goja.Compile("send.js", s.script, true)
-	if err != nil {
-		return
+var ErrNotFoundFunc = errors.New("告警脚本错误：找不到onSendMsgScriptlet函数")
+
+func (s scripter) send() error {
+	vm := goja.New()
+	el := js.NewExtendLib()
+	err1 := vm.Set("el", el)
+	if err1 != nil {
+		el.Error(err1)
+		return err1
 	}
-	rt := goja.New()
-	rt.Set("el", js.NewExtendLib())
-	rt.Set("message", s.Message)
-	rt.Set("targetID", s.TargetID)
-	_, err = rt.RunProgram(program)
-	if err != nil {
-		return
+	_, err2 := vm.RunString(s.script)
+	if err2 != nil {
+		el.Error(err2)
+		return err2
 	}
+
+	type Msg struct {
+		Message string `json:"message"`
+		ID      string `json:"id"`
+	}
+	var msg Msg
+	msg.Message = s.Message
+	msg.ID = s.TargetID
+
+	var fn func(Msg) string
+	ret := vm.Get("onSendMsgScriptlet")
+	if ret == nil {
+		el.Error(ErrNotFoundFunc)
+		return ErrNotFoundFunc
+	}
+	err := vm.ExportTo(ret, &fn)
+	if err != nil {
+		el.Error(ErrNotFoundFunc)
+		return ErrNotFoundFunc
+	}
+	fn(msg)
+	return nil
 }
 
 func sendJS(w http.ResponseWriter, r *http.Request) {
@@ -156,8 +193,14 @@ func sendJS(w http.ResponseWriter, r *http.Request) {
 		decodeJSON(body, &s)
 		s.script = Script
 
-		s.send()
-		b, _ := json.Marshal(s)
-		w.Write(b)
+		err := s.send()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+
+		} else {
+			b, _ := json.Marshal(s)
+			w.Write(b)
+		}
 	}
 }
