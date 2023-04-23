@@ -865,7 +865,7 @@ type Receiver struct {
 	// syslog
 	SyslogConfigs []*SyslogConfig `yaml:"syslog_configs,omitempty" json:"syslog_configs,omitempty"`
 	// javascript
-	JSConfigs []*JSConfig `yaml:"js_configs,omitempty" json:"js_configs,omitempty"`
+	JSConfigs []*JSConfig `yaml:"customhooks,omitempty" json:"customhooks,omitempty"`
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface for Receiver.

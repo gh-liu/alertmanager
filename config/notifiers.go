@@ -686,7 +686,7 @@ type SyslogConfig struct {
 type JSConfig struct {
 	NotifierConfig `yaml:",inline" json:",inline"`
 
-	Script   string `yaml:"script"`
+	Script   string `yaml:"-"`
 	TargetID string `yaml:"target_id"`
 	// 模板
 	Text string `yaml:"text"`

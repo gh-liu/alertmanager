@@ -186,7 +186,7 @@ func buildReceiverIntegrations(nc *config.Receiver, tmpl *template.Template, log
 		})
 	}
 	for i, c := range nc.JSConfigs {
-		add("js", i, c, func(l log.Logger) (notify.Notifier, error) {
+		add("customhook", i, c, func(l log.Logger) (notify.Notifier, error) {
 			s, err := js.New(c, tmpl, l)
 			if err != nil {
 				level.Error(logger).Log("msg", "Error creating js notifier", "err", err)

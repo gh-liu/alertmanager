@@ -40,57 +40,55 @@ func New(conf *config.JSConfig, t *template.Template, l log.Logger) (*Runtime, e
 }
 
 func (n *Runtime) Notify(ctx context.Context, as ...*types.Alert) (bool, error) {
-	var err error
+	var err2 error
 
 	data := notify.GetTemplateData(ctx, n.tmpl, as, n.logger)
-	body, err := n.tmpl.ExecuteTextString(n.conf.Text, data)
-	if err != nil {
-		return false, err
+	body, err2 := n.tmpl.ExecuteTextString(n.conf.Text, data)
+	if err2 != nil {
+		return false, err2
 	}
 	if body == "" {
 		return false, errors.New("[js] body is empty")
 	}
 
 	go func(bd, id string) {
-		// level.Info(n.logger).Log("js_msg_body", bd)
-
-		rt := goja.New()
-		err3 := rt.Set("el", NewExtendLib())
-		if err3 != nil {
-			level.Error(n.logger).Log("error", err)
+		vm := goja.New()
+		err1 := vm.Set("el", NewExtendLib())
+		if err1 != nil {
+			level.Error(n.logger).Log("error", err2)
 			return
 		}
-
-		_, err = rt.RunString(n.conf.Script)
-		if err != nil {
-			level.Error(n.logger).Log("error", err)
-			return
-		}
-
-		var fn func(body, id string) string
-		err2 := rt.ExportTo(rt.Get("sendMsg"), &fn)
+		_, err2 = vm.RunString(n.conf.Script)
 		if err2 != nil {
 			level.Error(n.logger).Log("error", err2)
 			return
 		}
 
-		fn(bd, id)
-		level.Info(n.logger).Log("js_msg_body_after", bd)
+		type Msg struct {
+			Message string `json:"message"`
+			ID      string `json:"id"`
+		}
+		var msg Msg
+		msg.Message = bd
+		msg.ID = id
 
-		// rt.Set("message", bd)
-		// rt.Set("targetID", id)
-		// _, err = rt.RunProgram(n.program)
+		var fn func(Msg) string
+		err := vm.ExportTo(vm.Get("onSendMsgScriptlet"), &fn)
+		if err != nil {
+			level.Error(n.logger).Log("error", "告警脚本错误：找不到onSendMsgScriptlet函数")
+			return
+		}
+		fn(msg)
+		// alarmScript, ok := goja.AssertFunction(vm.Get("onSendMsgScriptlet"))
+		// if !ok {
+		// 	level.Error(n.logger).Log("error", "告警脚本错误：找不到onSendMsgScriptlet函数")
+		// 	return
+		// }
+		// _, err3 := alarmScript(goja.Undefined(), vm.ToValue(Msg))
+		// if err3 != nil {
+		// 	level.Error(n.logger).Log("error", err3)
+		// 	return
+		// }
 	}(body, n.conf.TargetID)
-
-	// 函数调用的方式
-	// v := rt.Get("doHTTPRequest")
-	// fn, ok := goja.AssertFunction(v)
-	// if !ok {
-	// 	return false, errors.New("doHTTPRequest function not found")
-	// }
-	//
-	// alerts := rt.NewArray(as)
-	// _, err := fn(goja.Undefined(), alerts)
-
-	return false, err
+	return false, err2
 }
