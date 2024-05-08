@@ -52,6 +52,12 @@ func (n *Runtime) Notify(ctx context.Context, as ...*types.Alert) (bool, error) 
 	}
 
 	go func(bd, id string) {
+		defer func() {
+			if r := recover(); r != nil {
+				level.Error(n.logger).Log("recover error:", r)
+			}
+		}()
+
 		vm := goja.New()
 		err1 := vm.Set("el", NewExtendLib())
 		if err1 != nil {
@@ -80,5 +86,6 @@ func (n *Runtime) Notify(ctx context.Context, as ...*types.Alert) (bool, error) 
 		}
 		fn(msg)
 	}(body, n.conf.TargetID)
-	return false, err2
+
+	return false, nil
 }
