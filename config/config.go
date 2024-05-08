@@ -49,19 +49,19 @@ func init() {
 // Secret is a string that must not be revealed on marshaling.
 type Secret string
 
-// MarshalYAML implements the yaml.Marshaler interface for Secret.
-func (s Secret) MarshalYAML() (interface{}, error) {
-	if s != "" {
-		return secretToken, nil
-	}
-	return nil, nil
-}
-
-// UnmarshalYAML implements the yaml.Unmarshaler interface for Secret.
-func (s *Secret) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	type plain Secret
-	return unmarshal((*plain)(s))
-}
+// // MarshalYAML implements the yaml.Marshaler interface for Secret.
+// func (s Secret) MarshalYAML() (interface{}, error) {
+// 	if s != "" {
+// 		return secretToken, nil
+// 	}
+// 	return nil, nil
+// }
+//
+// // UnmarshalYAML implements the yaml.Unmarshaler interface for Secret.
+// func (s *Secret) UnmarshalYAML(unmarshal func(interface{}) error) error {
+// 	type plain Secret
+// 	return unmarshal((*plain)(s))
+// }
 
 // MarshalJSON implements the json.Marshaler interface for Secret.
 func (s Secret) MarshalJSON() ([]byte, error) {
