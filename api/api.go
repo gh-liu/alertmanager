@@ -210,6 +210,9 @@ func (api *API) Update(cfg *config.Config, setAlertStatus func(model.LabelSet)) 
 	SMTPHello = cfg.Global.SMTPHello
 	SMTPRequireTls = cfg.Global.SMTPRequireTLS
 	Script = cfg.Global.Script
+	WechatApiUrl = cfg.Global.WeChatAPIURL.String()
+	WechatApiCorpId = cfg.Global.WeChatAPICorpID
+	WechatApiSecret = string(cfg.Global.WeChatAPISecret)
 }
 
 func (api *API) limitHandler(h http.Handler) http.Handler {

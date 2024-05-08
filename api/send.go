@@ -14,6 +14,7 @@
 package api
 
 import (
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
@@ -36,6 +37,10 @@ var (
 	SMTPAuthPassword string
 	SMTPRequireTls   bool
 
+	WechatApiUrl    string
+	WechatApiSecret string
+	WechatApiCorpId string
+
 	Script string
 )
 
@@ -43,6 +48,7 @@ func (api *API) Add(mux *http.ServeMux) {
 	mux.Handle("/send_mail", http.HandlerFunc(sendMail))
 	mux.Handle("/send_syslog", http.HandlerFunc(sendSyslog))
 	mux.Handle("/send_customhook", http.HandlerFunc(sendJS))
+	mux.Handle("/send_wechat", http.HandlerFunc(sendWeChat))
 }
 
 type email struct {
@@ -183,6 +189,52 @@ func (s scripter) send() error {
 	}
 	fn(msg)
 	return nil
+}
+
+func sendWeChat(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		wechatClient := NewClient(WechatApiUrl, WechatApiSecret, WechatApiCorpId)
+
+		var param struct {
+			MessageType string `json:"message_type"`
+			Message     string `json:"message"`
+
+			ObjType string `json:"obj_type"`
+			To      string `json:"to"`
+
+			AgentID string `json:"agentid"`
+		}
+		body := r.Body
+		defer body.Close()
+		decodeJSON(body, &param)
+		var touser, toparty, totag string
+		switch param.ObjType {
+		case "user":
+			touser = param.To
+		case "party":
+			toparty = param.To
+		case "tag":
+			totag = param.To
+		}
+
+		err := wechatClient.SendToWechat(
+			context.Background(),
+			param.AgentID,
+			param.MessageType,
+			param.Message,
+			touser,
+			toparty,
+			totag,
+		)
+
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+		} else {
+			b, _ := json.Marshal(param)
+			w.Write(b)
+		}
+	}
 }
 
 func sendJS(w http.ResponseWriter, r *http.Request) {
